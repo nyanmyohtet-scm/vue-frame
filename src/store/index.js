@@ -13,17 +13,18 @@ export default new Vuex.Store({
     },
     mutations: {
         setUserData(state, userData) {
-            state.user = userData;
+            state.user = userData.user;
+            state.user.access_token = userData.accessToken
         },
     },
     actions: {
         login({ commit }, credentials) {
-            return axios.post("/auth/login", credentials).then(({ data }) => {
+            return axios.post("/login", credentials).then(({ data }) => {
                 commit("setUserData", data);
             });
         },
         logout({ commit }, credentials) {
-            return axios.post("/auth/logout", credentials).then(() => {
+            return axios.post("/logout", credentials).then(() => {
                 commit("setUserData", null);
             });
         },
@@ -31,19 +32,19 @@ export default new Vuex.Store({
     getters: {
         isLoggedIn: (state) => !!state.user,
         userType: (state) => {
-            if (state.user && state.user.data.user_type) {
-                return state.user.data.user_type;
+            if (state.user && "type" in state.user) {
+                return state.user.type;
             }
-            return -1;
+            return 1;
         },
         userId: (state) => {
-            if (state.user && state.user.data.user_id) {
-                return state.user.data.user_id;
+            if (state.user && state.user.id) {
+                return state.user.id;
             }
         },
         userName: (state) => {
-            if (state.user && state.user.data.user_name) {
-                return state.user.data.user_name;
+            if (state.user && state.user.name) {
+                return state.user.name;
             }
         },
     },

@@ -45,7 +45,7 @@ export default {
     },
     mounted() {
         this.$axios
-            .get("/post/list")
+            .get("/posts")
             .then((response) => {
                 this.postList = response.data;
                 this.showList = this.postList;
