@@ -1,6 +1,13 @@
 # vue-pwa-frame
 
 ## Project setup
+
+Copy `.env` file
+
+```
+cp .env.example .env
+```
+
 ```
 yarn install
 ```
